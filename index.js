@@ -23,6 +23,7 @@ async function run() {
 
     const conflictInfo = await pullRequests({ octokit });
     signale.debug(inspect(conflictInfo, {depth:3}));
+    core.exportVariable('conflicts', inspect(conflictInfo, {depth:3}));
 
     if (conflictInfo.conflictPrs.length > 0) {
       // leave comment on current PR
@@ -55,7 +56,6 @@ async function run() {
 
       core.warning(inspect(conflictInfo, {depth:3}));
       core.exportVariable('test', 'hello_world');
-      core.exportVariable('conflicts', inspect(conflictInfo, {depth:3}));
       core.warning("Potential conflicts detected!");
       // core.setFailed("Potential conflicts detected!");
     }
